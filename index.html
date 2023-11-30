@@ -112,7 +112,7 @@
                 // Create a new row
                 var table = document.getElementById("nameTable");
                 var tbody = table.getElementsByTagName('tbody')[0];
-                var row = tbody.insertRow(0);
+                var row = tbody.insertRow(-1); // Append to the end
 
                 // Insert cells into the row
                 var cell1 = row.insertCell(0);
@@ -129,7 +129,7 @@
             var editList = document.getElementById("editList");
             var listItem = document.createElement("li");
             listItem.innerHTML = name + ' <button onclick="removeName(\'' + name + '\')">Remove</button>';
-            editList.insertBefore(listItem, editList.firstChild);
+            editList.appendChild(listItem);
         }
 
         function removeName(name) {
