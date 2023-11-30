@@ -5,10 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Table</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
         table {
+            width: 100%;
             border-collapse: collapse;
-            width: 50%;
-            margin: 20px;
+            margin: 20px 0;
         }
         table, th, td {
             border: 1px solid black;
@@ -21,21 +28,25 @@
 </head>
 <body>
 
-    <h2>Add Names to Table</h2>
-    
-    <input type="text" id="nameInput" placeholder="Enter a name">
-    <button onclick="addName()">Add Name</button>
+    <div id="container">
 
-    <table id="nameTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+        <h2>Add Names to Table</h2>
+        
+        <input type="text" id="nameInput" placeholder="Enter a name">
+        <button onclick="addName()">Add Name</button>
+
+        <table id="nameTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
 
     <script>
         function addName() {
