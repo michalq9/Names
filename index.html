@@ -7,10 +7,39 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
         #container {
             max-width: 800px;
             margin: 0 auto;
+            overflow: hidden;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            float: left;
+            width: 100%;
+            background-color: #f1f1f1;
+            padding: 15px;
+            box-sizing: border-box;
+            display: none;
+        }
+        nav a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+        nav a:hover {
+            background-color: #ddd;
         }
         table {
             width: 100%;
@@ -24,27 +53,46 @@
             padding: 10px;
             text-align: left;
         }
+        .edit-section {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
+    <header>
+        <h2>Dynamic Table</h2>
+        <div id="burger" onclick="toggleNav()">&#9776; Menu</div>
+    </header>
+
     <div id="container">
 
-        <h2>Add Names to Table</h2>
-        
-        <input type="text" id="nameInput" placeholder="Enter a name">
-        <button onclick="addName()">Add Name</button>
+        <nav id="menu">
+            <a href="#" onclick="showListView()">View List</a>
+            <a href="#" onclick="showEditView()">Edit List</a>
+        </nav>
 
-        <table id="nameTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div id="list-section">
+            <h2>List Section</h2>
+            
+            <table id="nameTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="edit-section" class="edit-section">
+            <h2>Edit Section</h2>
+            
+            <input type="text" id="nameInput" placeholder="Enter a name">
+            <button onclick="addName()">Add Name</button>
+        </div>
 
     </div>
 
@@ -80,7 +128,27 @@
             // Remove the row
             row.parentNode.removeChild(row);
         }
+
+        function showListView() {
+            document.getElementById("list-section").style.display = "block";
+            document.getElementById("edit-section").style.display = "none";
+        }
+
+        function showEditView() {
+            document.getElementById("list-section").style.display = "none";
+            document.getElementById("edit-section").style.display = "block";
+        }
+
+        function toggleNav() {
+            var nav = document.getElementById("menu");
+            if (nav.style.display === "block") {
+                nav.style.display = "none";
+            } else {
+                nav.style.display = "block";
+            }
+        }
     </script>
 
 </body>
 </html>
+  
