@@ -1,105 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-  <style>
-    table {
-      border-collapse: collapse;
-      width: 300px;
-      margin: 20px;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: center;
-      position: relative;
-    }
-    .delete-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
 
-<script>
-  let names = [];
+    <h2>Add Names to Table</h2>
+    
+    <input type="text" id="nameInput" placeholder="Enter a name">
+    <button onclick="addName()">Add Name</button>
 
-  function setup() {
-    createCanvas(400, 400);
+    <table id="nameTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
-    // Input field for adding names
-    input = createInput();
-    input.position(20, height + 20);
+    <script>
+        function addName() {
+            // Get input value
+            var nameInput = document.getElementById("nameInput");
+            var name = nameInput.value;
 
-    // Add button to add names
-    addButton = createButton('Add Name');
-    addButton.position(input.x + input.width, height + 20);
-    addButton.mousePressed(addName);
+            // Clear input field
+            nameInput.value = "";
 
-    // Create initial table
-    createTable();
-  }
+            // Check if the name is not empty
+            if (name.trim() !== "") {
+                // Create a new row
+                var table = document.getElementById("nameTable");
+                var row = table.insertRow(1);
 
-  function draw() {
-    background(220);
-  }
+                // Insert cells into the row
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
 
-  function addName() {
-    let name = input.value();
-    if (name !== '') {
-      names.push(name);
-      createTable();
-      input.value('');
-    }
-  }
+                // Set cell values
+                cell1.innerHTML = name;
+                cell2.innerHTML = '<button onclick="removeName(this)">Remove</button>';
+            }
+        }
 
-  function createTable() {
-    // Clear existing table
-    selectAll('tr').forEach(tr => tr.remove());
+        function removeName(button) {
+            // Get the row to be removed
+            var row = button.parentNode.parentNode;
 
-    // Create new table
-    let table = createElement('table');
-    table.position(20, 20);
-
-    // Create table header
-    let header = createElement('tr');
-    let th = createElement('th', 'Melden');
-    header.child(th);
-    table.child(header);
-
-    // Create table rows
-    for (let i = names.length - 1; i >= 0; i--) {
-      let row = createElement('tr');
-
-      // Create delete button for each name
-      let deleteButton = createElement('button', 'Delete');
-      deleteButton.class('delete-button');
-      deleteButton.mousePressed(() => deleteName(i));
-
-      let td = createElement('td', names[i]);
-      td.child(deleteButton);
-
-      // Change background color on hover
-      td.style('cursor', 'pointer');
-      td.mouseOver(() => deleteButton.style('opacity', '1'));
-      td.mouseOut(() => deleteButton.style('opacity', '0'));
-
-      row.child(td);
-      table.child(row);
-    }
-  }
-
-  function deleteName(index) {
-    names.splice(index, 1);
-    createTable();
-  }
-</script>
+            // Remove the row
+            row.parentNode.removeChild(row);
+        }
+    </script>
 
 </body>
 </html>
