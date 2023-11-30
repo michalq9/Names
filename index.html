@@ -89,7 +89,7 @@
         <div id="edit-section" class="edit-section">
             <h2>Edit Section</h2>
             
-            <input type="text" id="nameInput" placeholder="Enter a name">
+            <input type="text" id="nameInput" placeholder="Enter a name" onkeydown="if(event.key==='Enter'){addName()}">
             <button onclick="addName()">Add Name</button>
 
             <h3>Names to Edit</h3>
@@ -111,7 +111,8 @@
             if (name.trim() !== "") {
                 // Create a new row
                 var table = document.getElementById("nameTable");
-                var row = table.insertRow(1);
+                var tbody = table.getElementsByTagName('tbody')[0];
+                var row = tbody.insertRow(0);
 
                 // Insert cells into the row
                 var cell1 = row.insertCell(0);
@@ -128,7 +129,7 @@
             var editList = document.getElementById("editList");
             var listItem = document.createElement("li");
             listItem.innerHTML = name + ' <button onclick="removeName(\'' + name + '\')">Remove</button>';
-            editList.appendChild(listItem);
+            editList.insertBefore(listItem, editList.firstChild);
         }
 
         function removeName(name) {
@@ -144,7 +145,7 @@
 
             // Remove the corresponding row from the table
             var table = document.getElementById("nameTable");
-            for (var i = 1; i < table.rows.length; i++) {
+            for (var i = 0; i < table.rows.length; i++) {
                 var row = table.rows[i];
                 if (row.cells[0].innerHTML === name) {
                     table.deleteRow(i);
